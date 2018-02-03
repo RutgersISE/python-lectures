@@ -3,4 +3,7 @@
 a = 14
 b = -15
 
-if # TODO finish this script
+if a > b:
+    print(a)
+else:
+    print(b)
