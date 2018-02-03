@@ -2,6 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 from scipy.optimize import minimize
 # note: scipy.optimize focuses on smooth 
@@ -23,13 +24,16 @@ def grad(X):
 x0 = np.random.uniform(-3, 3, size=2)
 res = minimize(func, x0, jac=grad)
 print("optimal x =", res.x)
-opt = res.x
+opt_x = res.x
+opt_fun = res.fun
 
 # plot function and the optimal point
 x = np.linspace(-3, 3, num=500)
 y = np.linspace(-3, 3, num=500)
 X, Y = np.meshgrid(x, y)
 Z = func(np.stack((X, Y), axis=0))
-plt.contour(X, Y, Z, 10)
-plt.plot(opt[0], opt[1], "r*", ms=10)
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X, Y, Z, linewidth=0, antialiased=False, alpha=.25)
+ax.scatter([opt_x[0]], [opt_x[1]], [opt_fun], c="r")
 plt.show()
