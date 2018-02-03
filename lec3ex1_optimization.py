@@ -1,3 +1,5 @@
+""" Lecture 3 Exercise 1 : Optimization """
+
 import numpy as np
 import matplotlib.pyplot as plt
 
