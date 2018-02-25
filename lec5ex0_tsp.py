@@ -6,17 +6,17 @@ from scipy.spatial.distance import cdist
 def plot_tsp(path, coords):
     """ plots a solved tsp """
     plt.scatter(coords[:, 0], coords[:, 1])
-    for i in path:
+    for i, j in list(zip(path[1:], path[:-1])) + [(path[-1], path[0])]:
         x, y = coords[i, 0], coords[i, 1]
-        dx, dy = coords[i-1, 0] - coords[i, 0], coords[i-1, 1] - coords[i, 1]
+        dx, dy = coords[j, 0] - coords[i, 0], coords[j, 1] - coords[i, 1]
         plt.arrow(x, y, dx, dy, shape='full', lw=1, length_includes_head=True, head_width=0)
     plt.show()    
 
 def path_length(path, dist):
     """ computes the length of a solved tsp """ 
-    length = 0
-    for i in path:
-        length += dist[i - 1, i]
+    length = dist[-1, 1]
+    for i, j in zip(path[1:], path[:-1]):
+        length += dist[i, j]
     return length
 
 def solve_tsp(dist):
